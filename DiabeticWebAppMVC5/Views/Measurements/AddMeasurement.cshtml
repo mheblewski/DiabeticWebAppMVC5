@@ -1,0 +1,58 @@
+﻿@using System.Xml.Schema
+@using DiabeticWebAppMVC5.Models
+@model DiabeticWebAppMVC5.Models.MeasurementViewModel
+@{
+    ViewBag.Title = "Add measurement";
+}
+
+<div add-measurement-container>
+    <div class="row">
+        <div class="col-md-8">
+            <section id="addMeasurementForm">
+                <form class="form-horizontal" , role="form">
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Result, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Result, new { @class = "form-control", id = "result" })
+                            @Html.ValidationMessageFor(m => m.Result, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Description, new { @class = "form-control", id = "description" })
+                            @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <button class="btn btn-success" type="button"
+                                    onclick="AddMeasurement();">
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+</div>
+
+<script language="javascript" type="text/javascript">
+    function AddMeasurement() {
+        var measurementModel = {
+            Result: $("#result").val(),
+            Description: $("#description").val()
+        }; 
+        $.ajax({
+            type: "POST",
+            url: "/Measurements/AddMeasurement",
+            data: measurementModel,
+            success: function(data) {
+                $("#add-measurement-container").html(data);
+            },
+        });     
+    }
+</script>
