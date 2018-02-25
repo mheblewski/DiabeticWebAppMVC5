@@ -25,7 +25,7 @@
                     <td id="MeasurementColumn" , style="font-size: 18px;">@Html.DisplayFor(m => element.Result)</td>
                     <td id="MeasurementColumn" , style="font-size: 18px;">@Html.DisplayFor(m => element.Description)</td>
                     <td id="MeasurementColumn" , style="font-size: 18px;">@Html.DisplayFor(m => element.Date)</td>
-                    <td><button class="btn btn-danger" id="ClickMe" type="button" onclick="DeleteMeasurement(@element.Id);">Delete</button></td>
+                    <td><button class="btn-delete" type="button" onclick="DeleteMeasurement(@element.Id);"></button></td>
                 </tr>
             }
             </tbody>
@@ -40,16 +40,10 @@
         }
     </table>
 }
-        <div id="AddMeasurement">
-            @*<button class="btn btn-success" type="button"
-                        onclick="location.href='@Url.Action("AddMeasurement", "Measurements")'">
-                    Add new
-                </button>*@
-            <button class="btn btn-success" type="button"
-                    onclick="AddMeasurement();">
-                Add new
-            </button>
-        </div>
+    <div id="AddMeasurement">
+        <button class="btn-add" type="button"
+                onclick="OpenPlaceToAddMeasurement();"></button>
+    </div>
 
 
         <script language="javascript" type="text/javascript">
@@ -67,7 +61,7 @@
 
             }
 
-            function AddMeasurement() {
+            function OpenPlaceToAddMeasurement() {
                 $.ajax({
                     url: '@Url.Action("AddMeasurement", "Measurements")',
                     success: function (data) {
